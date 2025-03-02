@@ -13,7 +13,7 @@ This endpoint registers a new user in the system. It validates the request body 
 - **Full Name:** Contains `firstName` and `lastName` (both required and must be at least 3 characters long).
 - **Password:** Must be at least 8 characters long.
 
-The endpoint uses the [`user.routes.js`](Backend/routes/user.routes.js) for validations and is processed by the [`user.controller.registerUser`](Backend/controllers/user.controller.js) function.
+The endpoint uses the [`user.routes.js`](routes/user.routes.js) for validations and is processed by the [`user.controller.registerUser`](controllers/user.controller.js) function.
 
 #### Request Body Format
 ```json
