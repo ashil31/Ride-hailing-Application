@@ -19,6 +19,8 @@ app.use(express.urlencoded({ extended: true }));
 
 const userRoutes = require('./routes/user.routes');
 app.use('/users', userRoutes);
+const captainRoutes = require('./routes/captain.routes');
+app.use('/captains', captainRoutes);
 
 app.get('/', (req, res) => {
     res.send('Hello World!');
