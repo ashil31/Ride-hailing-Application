@@ -2,7 +2,7 @@
 
 ## Users Endpoints
 
-### Register Endpoint
+### User Register Endpoint
 
 #### Endpoint
 `POST /users/register`
@@ -50,7 +50,7 @@ The endpoint uses the [`user.routes.js`](routes/user.routes.js) for validations 
 
 ---
 
-### Login Endpoint
+### User Login Endpoint
 
 #### Endpoint
 `POST /users/login`
@@ -90,7 +90,7 @@ This endpoint logs in an existing user. It validates the email and password prov
 
 ---
 
-### Profile Endpoint
+### User Profile Endpoint
 
 #### Endpoint
 `GET /users/profile`
@@ -118,7 +118,7 @@ This endpoint returns the profile of an authenticated user. A valid authenticati
 
 ---
 
-### Logout Endpoint
+### User Logout Endpoint
 
 #### Endpoint
 `GET /users/logout`
@@ -143,7 +143,7 @@ This endpoint logs out an authenticated user by clearing the token from cookies 
 
 ## Captains Endpoints
 
-### Register Endpoint
+### User Register Endpoint
 
 #### Endpoint
 `POST /captains/register`
@@ -211,7 +211,7 @@ This endpoint registers a new captain in the system. It requires detailed person
 
 ---
 
-### Login Endpoint
+### User Login Endpoint
 
 #### Endpoint
 `POST /captains/login`
@@ -264,7 +264,7 @@ This endpoint logs in an existing captain. It validates the email and password p
 
 ---
 
-### Profile Endpoint
+### User Profile Endpoint
 
 #### Endpoint
 `GET /captains/profile`
@@ -298,7 +298,7 @@ This endpoint returns the profile of an authenticated captain. A valid authentic
 
 ---
 
-### Logout Endpoint
+### User Logout Endpoint
 
 #### Endpoint
 `GET /captains/logout`
