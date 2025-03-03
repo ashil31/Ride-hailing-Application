@@ -149,7 +149,7 @@ This endpoint logs out an authenticated user by clearing the token from cookies 
 `POST /captains/register`
 
 #### Description
-This endpoint registers a new captain in the system. It requires detailed personal and vehicle information. The captain's password must meet security criteria (containing at least one uppercase letter, one lowercase letter, one number, and one special character). The registration is processed by the [`captain.controller.registerCaptain`](controllers/captain.controller) function and validated through the [`captain.routes.js`](routes/captain.routes).
+This endpoint registers a new captain in the system. It requires detailed personal and vehicle information. The captain's password must meet security criteria (containing at least one uppercase letter, one lowercase letter, one number, and one special character). The registration is processed by the [`captain.controller.registerCaptain`](controllers/captain.controller.js) function and validated through the [`captain.routes.js`](routes/captain.routes.js).
 
 #### Request Body Format
 ```json
