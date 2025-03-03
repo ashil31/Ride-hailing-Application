@@ -143,7 +143,7 @@ This endpoint logs out an authenticated user by clearing the token from cookies 
 
 ## Captains Endpoints
 
-### User Register Endpoint
+### Register Endpoint
 
 #### Endpoint
 `POST /captains/register`
@@ -211,7 +211,7 @@ This endpoint registers a new captain in the system. It requires detailed person
 
 ---
 
-### User Login Endpoint
+### Login Endpoint
 
 #### Endpoint
 `POST /captains/login`
@@ -264,7 +264,7 @@ This endpoint logs in an existing captain. It validates the email and password p
 
 ---
 
-### User Profile Endpoint
+### Profile Endpoint
 
 #### Endpoint
 `GET /captains/profile`
@@ -298,7 +298,7 @@ This endpoint returns the profile of an authenticated captain. A valid authentic
 
 ---
 
-### User Logout Endpoint
+### Logout Endpoint
 
 #### Endpoint
 `GET /captains/logout`
