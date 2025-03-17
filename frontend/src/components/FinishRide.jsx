@@ -1,0 +1,76 @@
+import { FaMapMarkerAlt } from "react-icons/fa";
+import { FaLocationPinLock } from "react-icons/fa6";
+import { MdOutlinePayment } from "react-icons/md";
+import profile from "../assets/profile.png";
+import { BsChevronCompactDown } from "react-icons/bs";
+import { Link } from "react-router-dom";
+
+const FinishRide = (props) => {
+  return (
+    <div className="p-1">
+      <div className="flex items-center gap-3 mb-4">
+        <div
+          onClick={() => props.setFinishRidePanel(false)}
+          className="text-xl"
+        >
+          <BsChevronCompactDown  className="" />{" "}
+        </div>
+        <div>
+          <h3 className="text-center text-xl font-semibold">
+            Complete Ride
+          </h3>
+        </div>
+      </div>
+      <div className="flex justify-between items-center mt-2 bg-[#ebd43b] p-3 rounded-xl">
+        <div className="flex items-center gap-2">
+          <img
+            src={profile}
+            className="h-11 w-11 rounded-full object-cover"
+            alt=""
+          />
+          <h4 className="font-medium text-lg">Angel Patel</h4>
+        </div>
+        <h5 className="text-lg font-medium">2.2 KM</h5>
+      </div>
+
+      {/* Ride Details */}
+      <div className="flex flex-col items-center justify-between gap-3">
+        <div className="w-full mt-2">
+          <div className="flex items-center gap-3 p-3 border-b-2">
+            <FaMapMarkerAlt className="text-gray-900 text-lg" />
+            <div className="w-full">
+              <h3 className="font-semibold text-base">123/11-A</h3>
+              <p className="text-sm font-normal text-gray-600">
+                Mountain View, San jose, California
+              </p>
+            </div>
+          </div>
+          <div className="flex items-center gap-3 p-3 border-b-2">
+            <FaLocationPinLock className="text-gray-900 text-lg" />
+            <div className="w-full">
+              <h3 className="font-semibold text-base">Starbucks</h3>
+              <p className="text-sm font-normal text-gray-600">
+                Los Angeles, California
+              </p>
+            </div>
+          </div>
+          <div className="flex items-center gap-3 p-3">
+            <MdOutlinePayment className="text-gray-900 text-lg" />
+            <div className="w-full">
+              <h3 className="font-semibold text-base">₹193.20</h3>
+              <p className="text-sm font-normal text-gray-600">Cash</p>
+            </div>
+          </div>
+        </div>
+          <Link
+            to="/captain-home"
+            className="w-full rounded-xl bg-[#3beb53] text-center text-black font-semibold p-2"
+          >
+            Complete Ride
+          </Link>
+      </div>
+    </div>
+  );
+};
+
+export default FinishRide;
