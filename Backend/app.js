@@ -21,6 +21,8 @@ const userRoutes = require('./routes/user.routes');
 app.use('/users', userRoutes);
 const captainRoutes = require('./routes/captain.routes');
 app.use('/captains', captainRoutes);
+const mapsRoutes = require('./routes/maps.routes');
+app.use('/maps', mapsRoutes);
 
 app.get('/', (req, res) => {
     res.send('Hello World!');
