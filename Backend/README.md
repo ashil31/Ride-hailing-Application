@@ -318,3 +318,217 @@ This endpoint logs out an authenticated captain by clearing the token from cooki
   "message": "Logged out successfully"
 }
 ```
+
+## Maps Endpoints
+
+### Get Coordinates Endpoint
+
+#### Endpoint
+`GET /maps/get-coordinates`
+
+#### Description
+This endpoint returns the geographical coordinates (latitude and longitude) for a given address. A valid authentication token is required.
+
+#### Request Query Parameters
+- **address** (string, required): The address for which coordinates are requested. Must be at least 3 characters long.
+
+#### Request Headers
+- **Authorization**: Bearer token (or use cookies)
+
+#### Status Codes
+- **200 OK:** Returns the coordinates of the provided address.
+- **400 Bad Request:** Returns if the address query parameter is missing or invalid.
+- **404 Not Found:** Returned if the coordinates cannot be fetched from the Maps service.
+
+#### Example Response
+
+**Success (200 OK):**
+```json
+{
+  "ltd": 40.712776,
+  "lng": -74.005974
+}
+```
+
+**Error (400 Bad Request):**
+```json
+{
+  "errors": [
+    {
+      "msg": "Invalid value",
+      "param": "address",
+      "location": "query"
+    }
+  ]
+}
+```
+
+---
+
+### Get Distance and Time Endpoint
+
+#### Endpoint
+`GET /maps/get-distance-time`
+
+#### Description
+This endpoint provides the distance and travel time between an origin and a destination. It requires valid authentication.
+
+#### Request Query Parameters
+- **origin** (string, required): The starting address. Must be at least 3 characters long.
+- **destination** (string, required): The destination address. Must be at least 3 characters long.
+
+#### Request Headers
+- **Authorization**: Bearer token (or use cookies)
+
+#### Status Codes
+- **200 OK:** Returns the distance, duration, and additional route details.
+- **400 Bad Request:** Returns if required query parameters are missing or invalid.
+- **500 Internal Server Error:** Returned if an error occurs in fetching distance/time details.
+
+#### Example Response
+
+**Success (200 OK):**
+```json
+{
+  "distance": {
+    "text": "5.3 km",
+    "value": 5300
+  },
+  "duration": {
+    "text": "12 mins",
+    "value": 720
+  },
+  "status": "OK"
+}
+```
+
+**Error (400 Bad Request):**
+```json
+{
+  "errors": [
+    {
+      "msg": "Invalid value",
+      "param": "origin",
+      "location": "query"
+    }
+  ]
+}
+```
+
+---
+
+### Get Suggestions Endpoint
+
+#### Endpoint
+`GET /maps/get-suggestions`
+
+#### Description
+This endpoint returns a list of auto-complete suggestions for a given input query. A valid authentication token is required.
+
+#### Request Query Parameters
+- **input** (string, required): The partial address or location name to search suggestions for. Must be at least 3 characters long.
+
+#### Request Headers
+- **Authorization**: Bearer token (or use cookies)
+
+#### Status Codes
+- **200 OK:** Returns a list of suggestion predictions.
+- **400 Bad Request:** Returns if the input query parameter is missing or invalid.
+- **500 Internal Server Error:** Returned if an error occurs while fetching suggestions.
+
+#### Example Response
+
+**Success (200 OK):**
+```json
+{
+  "suggestions": [
+    {
+      "description": "1600 Amphitheatre Parkway, Mountain View, CA, USA",
+      "place_id": "ChIJ2eUgeAK6j4ARbn5u_wAGqWA"
+    },
+    {
+      "description": "1600 Amphitheatre Pkwy, Mountain View, CA 94043, USA",
+      "place_id": "ChIJrTLr-GyuEmsRBfy61i59si0"
+    }
+  ]
+}
+```
+
+**Error (400 Bad Request):**
+```json
+{
+  "errors": [
+    {
+      "msg": "Invalid value",
+      "param": "input",
+      "location": "query"
+    }
+  ]
+}
+```
+
+
+## Rides Endpoints
+
+### Create Ride Endpoint
+
+#### Endpoint
+`POST /rides/create`
+
+#### Description
+This endpoint allows an authenticated user to create a new ride request. A valid authentication token is required (provided via cookies or the Authorization header). The request expects the pickup address, destination address, and the desired vehicle type. The fare is calculated based on distance and duration information retrieved from the Maps service, and a 6-digit OTP is generated for ride confirmation.
+
+#### Request Headers
+- **Authorization**: Bearer token (or via cookies)
+
+#### Request Body Format
+```json
+{
+  "pickup": "Pickup address string",
+  "destination": "Destination address string",
+  "vehicleType": "auto" // Acceptable values: "auto", "car", "motorcycle"
+}
+```
+
+#### Status Codes
+- **201 Created:** Returns when the ride is successfully created. The response includes ride details such as fare, OTP, and status.
+- **400 Bad Request:** Returns if validation fails (e.g., invalid pickup/destination address, incorrect vehicle type).
+- **500 Internal Server Error:** Returns if an error occurs during ride creation or fare calculation.
+
+#### Example Response
+
+**Success (201 Created):**
+```json
+{
+  "ride": {
+    "_id": "ride id here",
+    "user": "user id here",
+    "pickup": "Pickup address string",
+    "destination": "Destination address string",
+    "fare": 75, // calculated fare based on vehicle type, distance, and duration
+    "otp": "123456",
+    "status": "pending"
+  }
+}
+```
+
+**Error (400 Bad Request):**
+```json
+{
+  "errors": [
+    {
+      "msg": "Invalid pickup address",
+      "param": "pickup",
+      "location": "body"
+    }
+  ]
+}
+```
+
+**Error (500 Internal Server Error):**
+```json
+{
+  "error": "Detailed error message"
+}
+```
+```

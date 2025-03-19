@@ -31,20 +31,16 @@ module.exports.getDistanceTime = async (origin, destination) => {
     if (!apiKey) {
         throw new Error('Google Maps API key is missing');
     }
-    const url = `https://maps.googleapis.com/maps/api/distancematrix/json?origins=${encodeURIComponent(origin)}&destinations=${encodeURIComponent(destination)}&mode=driving`;
+    const url = `https://maps.googleapis.com/maps/api/distancematrix/json?origins=${encodeURIComponent(origin)}&destinations=${encodeURIComponent(destination)}&mode=driving&key=${apiKey}`;
 
 
     try {
-        const response = await axios.get(url, {
-            headers: {
-                "X-Goog-Api-Key": apiKey
-            }
-        });
+        const response = await axios.get(url);
         if(response.data.status === 'OK') {
 
             if(response.data.rows[ 0 ].elements[ 0 ].status === 'ZERO_RESULTS') {
                 throw new Error('No routes found')
-            }
+            }            
 
             return response.data.rows[ 0 ].elements[ 0 ];
         } else {
