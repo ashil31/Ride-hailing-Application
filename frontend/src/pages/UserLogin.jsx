@@ -19,13 +19,13 @@ const UserLogin = () => {
       email: email,
       password: password
     };
-
+    
     const response = await axios.post(`${import.meta.env.VITE_BASE_URL}/users/login`, userData);
 
     if (response.status === 200 || response.status === 201) {
       const data = response.data;
-      setUser(data.user);     
-      localStorage.setItem('token', data.token);
+      setUser(data.user);           
+      localStorage.setItem('token', data.token);    
       navigate('/home');
     }
     setEmail("");
@@ -45,6 +45,7 @@ const UserLogin = () => {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             placeholder="email@example.com"
+            autoComplete="email"
             className="bg-[#eeeeee] rounded-xl px-4 py-2 mb-7 border w-full text-lg placeholder:text-base"
           />
           <h3 className="text-lg font-medium mb-2">Enter Password</h3>
@@ -54,6 +55,7 @@ const UserLogin = () => {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             placeholder="Enter your password"
+            autoComplete="current-password"
             className="bg-[#eeeeee] rounded-xl px-4 py-2 mb-7 border w-full text-lg placeholder:text-base"
           />
 

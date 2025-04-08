@@ -26,8 +26,6 @@ const userSchema = mongoose.Schema({
         type: String,
         required: true,
         select: false,
-        // match: [/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/], //Showing an error(becz hash Password) here So, It's beeter to use in controller file.
-        // minlength: [8,'Password must be at least 8 characters long'],
     },
     socketId: {
         type: String,

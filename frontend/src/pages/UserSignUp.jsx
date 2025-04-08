@@ -30,7 +30,7 @@ const UserSignUp = () => {
 
     if (response.status === 200 || response.status === 201) {
       const data = response.data;
-      setUser(data.user);
+      setUser(data);
       localStorage.setItem('token', data.token);
       navigate('/home');
     }
@@ -56,6 +56,7 @@ const UserSignUp = () => {
               value={firstName}
               onChange={(e) => setFirstName(e.target.value)}
               placeholder="first name"
+              autoComplete="given-name"
               className="bg-[#eeeeee] rounded-xl px-4 py-2 border w-1/2 text-base placeholder:text-sm"
             />
             <input
@@ -64,6 +65,7 @@ const UserSignUp = () => {
               value={lastName}
               onChange={(e) => setLastName(e.target.value)}
               placeholder="last name"
+              autoComplete="family-name"
               className="bg-[#eeeeee] rounded-xl px-4 py-2 border w-1/2 text-base placeholder:text-sm"
             />
           </div>
@@ -74,6 +76,7 @@ const UserSignUp = () => {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             placeholder="email@example.com"
+            autoComplete="email"
             className="bg-[#eeeeee] rounded-xl px-4 py-2 mb-5 border w-full text-base placeholder:text-sm"
           />
           <h3 className="text-base font-medium mb-2">Enter Password</h3>
@@ -83,6 +86,7 @@ const UserSignUp = () => {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             placeholder="Enter your password"
+            autoComplete="current-password"
             className="bg-[#eeeeee] rounded-xl px-4 py-2 mb-7 border w-full text-base placeholder:text-sm"
           />
 

@@ -363,15 +363,13 @@ This endpoint returns the geographical coordinates (latitude and longitude) for 
 }
 ```
 
----
-
 ### Get Distance and Time Endpoint
 
 #### Endpoint
 `GET /maps/get-distance-time`
 
 #### Description
-This endpoint provides the distance and travel time between an origin and a destination. It requires valid authentication.
+This endpoint calculates the travel distance and duration between an origin and a destination using the Google Routes API. A valid authentication token is required.
 
 #### Request Query Parameters
 - **origin** (string, required): The starting address. Must be at least 3 characters long.
@@ -380,25 +378,23 @@ This endpoint provides the distance and travel time between an origin and a dest
 #### Request Headers
 - **Authorization**: Bearer token (or use cookies)
 
+#### Response Format
+The endpoint returns a JSON object containing:
+- **duration**: The travel duration as a string returned from the API. (value followed by "seconds")
+- **distance**: The distance in meters as a string (value followed by " meters").
+
 #### Status Codes
-- **200 OK:** Returns the distance, duration, and additional route details.
-- **400 Bad Request:** Returns if required query parameters are missing or invalid.
-- **500 Internal Server Error:** Returned if an error occurs in fetching distance/time details.
+- **200 OK:** Returns the distance and duration details.
+- **400 Bad Request:** Returned if any query parameter is missing or invalid.
+- **500 Internal Server Error:** Returned if an error occurs while fetching the distance/time details.
 
 #### Example Response
 
 **Success (200 OK):**
 ```json
 {
-  "distance": {
-    "text": "5.3 km",
-    "value": 5300
-  },
-  "duration": {
-    "text": "12 mins",
-    "value": 720
-  },
-  "status": "OK"
+  "duration": "9000 s",
+  "distance": "1200 meters"
 }
 ```
 
@@ -414,6 +410,14 @@ This endpoint provides the distance and travel time between an origin and a dest
   ]
 }
 ```
+
+**Error (500 Internal Server Error):**
+```json
+{
+  "error": "No routes found"
+}
+```
+
 
 ---
 
@@ -531,4 +535,57 @@ This endpoint allows an authenticated user to create a new ride request. A valid
   "error": "Detailed error message"
 }
 ```
+
+### Get Fare Endpoint
+
+#### Endpoint
+`GET /rides/get-fare`
+
+#### Description
+This endpoint calculates and returns the fare for a ride based on the provided pickup and destination addresses. A valid authentication token is required. The fare is computed using different base fares and rate multipliers for various vehicle types (auto, car, motorcycle).
+
+#### Request Query Parameters
+- **pickup** (string, required): The pickup address. Must be at least 3 characters long.
+- **destination** (string, required): The destination address. Must be at least 3 characters long.
+
+#### Request Headers
+- **Authorization**: Bearer token (or use cookies)
+
+#### Status Codes
+- **200 OK:** Returns a JSON object with fare details for each available vehicle type.
+- **400 Bad Request:** Returned if the required query parameters are missing or invalid.
+- **500 Internal Server Error:** Returned if an error occurs during fare calculation.
+
+#### Example Response
+
+**Success (200 OK):**
+```json
+{
+  "fare": {
+    "auto": 75.5,
+    "car": 120.8,
+    "motorcycle": 55.3
+  }
+}
 ```
+
+**Error (400 Bad Request):**
+```json
+{
+  "errors": [
+    {
+      "msg": "Invalid pickup address",
+      "param": "pickup",
+      "location": "query"
+    }
+  ]
+}
+```
+
+**Error (500 Internal Server Error):**
+```json
+{
+  "error": "Invalid pickup or destination address"
+}
+```
+``` 

@@ -15,7 +15,6 @@ const CaptainSignUp = () => {
     const [vehicleCapacity, setVehicleCapacity] = useState("");
     const [vehicleType, setVehicleType] = useState("");
 
-    const [captainData, setCaptainData] = useState([]);
 
     const navigate = useNavigate();
     const { captain, setCaptain } = useContext(CaptainDataContext);
@@ -68,6 +67,7 @@ const CaptainSignUp = () => {
               value={firstName}
               onChange={(e) => setFirstName(e.target.value)}
               placeholder="first name"
+              autoComplete="first-name"
               className="bg-[#eeeeee] rounded-xl px-4 py-2 border w-1/2 text-sm placeholder:text-sm"
             />
             <input
@@ -76,6 +76,7 @@ const CaptainSignUp = () => {
               value={lastName}
               onChange={(e) => setLastName(e.target.value)}
               placeholder="last name"
+              autoComplete="last-name"
               className="bg-[#eeeeee] rounded-xl px-4 py-2 border w-1/2 text-base placeholder:text-sm"
             />
           </div>
@@ -86,6 +87,7 @@ const CaptainSignUp = () => {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             placeholder="email@example.com"
+            autoComplete="email"
             className="bg-[#eeeeee] rounded-xl px-4 py-2 mb-3 border w-full text-base placeholder:text-sm"
           />
           <h3 className="text-base font-medium mb-2">Enter Password</h3>
@@ -95,6 +97,7 @@ const CaptainSignUp = () => {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             placeholder="Enter your password"
+            autoComplete="current-password"
             className="bg-[#eeeeee] rounded-xl px-4 py-2 mb-3 border w-full text-base placeholder:text-sm"
           />
 
@@ -106,6 +109,7 @@ const CaptainSignUp = () => {
               value={vehicleColor}
               onChange={(e) => setVehicleColor(e.target.value)}
               placeholder="Vehicle Color"
+              autoComplete="vehicle-color"
               className="bg-[#eeeeee] rounded-xl px-4 py-2 border w-1/2 text-sm placeholder:text-xs"
             />
             <input
@@ -114,6 +118,7 @@ const CaptainSignUp = () => {
               value={vehiclePlate}
               onChange={(e) => setVehiclePlate(e.target.value)}
               placeholder="Vehicle Plate"
+              autoComplete="vehicle-plate"
               className="bg-[#eeeeee] rounded-xl px-4 py-2 border w-1/2 text-sm placeholder:text-xs"
             />
           </div>
@@ -124,6 +129,7 @@ const CaptainSignUp = () => {
               value={vehicleCapacity}
               onChange={(e) => setVehicleCapacity(e.target.value)}
               placeholder="Vehicle Capacity"
+              autoComplete="vehicle-capacity"
               className="bg-[#eeeeee] rounded-xl px-4 py-2 border w-1/2 text-sm placeholder:text-xs"
             />
             <select

@@ -2,8 +2,13 @@ import profile from "../assets/profile.png";
 import { MdAccessTimeFilled } from "react-icons/md";
 import { IoSpeedometer } from "react-icons/io5";
 import { BiSolidNotepad } from "react-icons/bi";
+import { useContext } from "react";
+import { CaptainDataContext } from "../context/CaptainContext";
 
 const CaptainDetails = () => {
+
+  const { captain } = useContext(CaptainDataContext);
+
   return (
     <div>
       <div className="flex items-center justify-between p-3">
@@ -13,7 +18,7 @@ const CaptainDetails = () => {
             className="h-11 w-11 rounded-full object-cover"
             alt=""
           />
-          <h4 className="font-medium text-lg">Ashil Patel</h4>
+          <h4 className="font-medium text-lg capitalize">{captain?.fullName?.firstName} {captain?.fullName?.lastName}</h4>
         </div>
         <div className="text-right">
           <h4 className="font-semibold text-xl">₹295.20</h4>

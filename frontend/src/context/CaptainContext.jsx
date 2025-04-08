@@ -20,9 +20,7 @@ const CaptainContext = (
     });  
   return (
     <div>
-      <div>
       <CaptainDataContext.Provider value={{ captain , setCaptain}}>{children}</CaptainDataContext.Provider>
-    </div>
     </div>
   )
 }

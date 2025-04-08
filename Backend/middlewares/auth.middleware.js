@@ -26,9 +26,9 @@ module.exports.authUser = async (req, res, next) => {
             throw new Error("User is not found");
         }
         req.user = user;
-        next();
+        return next();
     } catch (error) {
-        res.status(401).json({ message: 'Please authenticate' });
+        return res.status(401).json({ message: 'Please authenticate' });
     }
 }
 
@@ -41,7 +41,7 @@ module.exports.authCaptain = async (req, res, next) => {
     const blacklistToken = await BlacklistToken.findOne({ token: token});
 
     if (blacklistToken) {
-        return res.status(401).json({ message: 'Please authenticate yourself' });
+        return res.status(401).json({ message: 'Unauthorized' });
     }
 
     try {
@@ -49,9 +49,9 @@ module.exports.authCaptain = async (req, res, next) => {
         const captain = await captainModel.findById(decoded._id);
         
         req.captain = captain;
-        next();
+        return next();
     }
     catch (error) {
-        res.status(401).json({ message: 'Please authenticate' });
+        res.status(401).json({ message: 'Unauthorized' });
     }
 }

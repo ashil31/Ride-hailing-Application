@@ -24,7 +24,9 @@ const RidePopUp = (props) => {
             className="h-11 w-11 rounded-full object-cover"
             alt=""
           />
-          <h4 className="font-medium text-lg">Angel Patel</h4>
+          <h4 className="font-medium text-lg">
+            {props.ride?.user?.fullName.firstName}{" "}{props.ride?.user?.fullName.lastName}
+          </h4>
         </div>
         <h5 className="text-lg font-medium">2.2 KM</h5>
       </div>
@@ -35,38 +37,43 @@ const RidePopUp = (props) => {
           <div className="flex items-center gap-3 p-3 border-b-2">
             <FaMapMarkerAlt className="text-gray-900 text-lg" />
             <div className="w-full">
-              <h3 className="font-semibold text-base">123/11-A</h3>
+              <h3 className="font-semibold text-base">PICKUP</h3>
               <p className="text-sm font-normal text-gray-600">
-                Mountain View, San jose, California
+                {props.ride?.pickup}
               </p>
             </div>
           </div>
           <div className="flex items-center gap-3 p-3 border-b-2">
             <FaLocationPinLock className="text-gray-900 text-lg" />
             <div className="w-full">
-              <h3 className="font-semibold text-base">Starbucks</h3>
+              <h3 className="font-semibold text-base">DESTINATION</h3>
               <p className="text-sm font-normal text-gray-600">
-                Los Angeles, California
+                {props.ride?.destination}
               </p>
             </div>
           </div>
           <div className="flex items-center gap-3 p-3">
             <MdOutlinePayment className="text-gray-900 text-lg" />
             <div className="w-full">
-              <h3 className="font-semibold text-base">₹193.20</h3>
+              <h3 className="font-semibold text-base">₹{props.ride?.fare}</h3>
               <p className="text-sm font-normal text-gray-600">Cash</p>
             </div>
           </div>
         </div>
         <div className="flex justify-center gap-4 w-full">
           <button
-            onClick={() => {props.setConfirmRidePopupPanel(true);}}
+            onClick={() => {
+              props.setConfirmRidePopupPanel(true);
+              props.confirmRide();
+            }}
             className="w-40 rounded-xl bg-[#3beb53] text-black font-semibold p-2"
           >
             Accept
           </button>
           <button
-            onClick={() => {props.setRidePopupPanel(false)}}
+            onClick={() => {
+              props.setRidePopupPanel(false);
+            }}
             className="w-40 rounded-xl bg-[#eb3b3b] text-black font-semibold p-2"
           >
             Ignore

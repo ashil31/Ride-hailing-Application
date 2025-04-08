@@ -4,8 +4,6 @@ import auto from "../assets/Uber_auto.png";
 import { FaUser } from "react-icons/fa";
 import { BsChevronCompactDown } from "react-icons/bs";
 
-
-
 const VehiclePanel = (props) => {
   return (
     <div>
@@ -19,7 +17,13 @@ const VehiclePanel = (props) => {
 
       <h3 className="text-2xl font-semibold mb-3">Choose Vehicle</h3>
       {/* car */}
-      <div onClick={() => props.setConfirmRidePanel(true)} className="flex items-center justify-between w-full mb-2 p-3 hover:shadow-lg hover:border-2 hover:border-black hover:rounded-xl ">
+      <div
+        onClick={() => {
+          props.setConfirmRidePanel(true);
+          props.selectVehicle('car');
+        }}
+        className="flex items-center justify-between w-full mb-2 p-3 hover:shadow-lg hover:border-2 hover:border-black hover:rounded-xl "
+      >
         <img src={car} className="h-14" alt="" />
         <div className="w-1/2">
           <h4 className="font-medium text-lg">
@@ -33,10 +37,16 @@ const VehiclePanel = (props) => {
             Affordable, compact rides
           </p>
         </div>
-        <h2 className="text-lg font-semibold">₹193.20</h2>
+        <h2 className="text-lg font-semibold">₹{props.fare.car}</h2>
       </div>
       {/* motor */}
-      <div onClick={() => props.setConfirmRidePanel(true)} className="flex items-center justify-between w-full mb-2 p-3 hover:shadow-lg hover:border-2 hover:border-black hover:rounded-xl ">
+      <div
+        onClick={() => {
+          props.setConfirmRidePanel(true);
+          props.selectVehicle('motorcycle');
+        }}
+        className="flex items-center justify-between w-full mb-2 p-3 hover:shadow-lg hover:border-2 hover:border-black hover:rounded-xl "
+      >
         <img src={motor} className="h-14" alt="" />
         <div className="w-1/2">
           <h4 className="font-medium text-lg">
@@ -50,10 +60,16 @@ const VehiclePanel = (props) => {
             Affordable, motorcycle rides
           </p>
         </div>
-        <h2 className="text-lg font-semibold">₹65.60</h2>
+        <h2 className="text-lg font-semibold">₹{props.fare.motorcycle}</h2>
       </div>
       {/* auto */}
-      <div onClick={() => props.setConfirmRidePanel(true)} className="flex items-center justify-between w-full mb-2 p-3 hover:shadow-lg hover:border-2 hover:border-black hover:rounded-xl ">
+      <div
+        onClick={() => {
+          props.setConfirmRidePanel(true);
+          props.selectVehicle('auto');
+        }}
+        className="flex items-center justify-between w-full mb-2 p-3 hover:shadow-lg hover:border-2 hover:border-black hover:rounded-xl "
+      >
         <img src={auto} className="h-14" alt="" />
         <div className="w-1/2">
           <h4 className="font-medium text-lg">
@@ -67,7 +83,7 @@ const VehiclePanel = (props) => {
             Affordable, Auto rides
           </p>
         </div>
-        <h2 className="text-lg font-semibold">₹118.21</h2>
+        <h2 className="text-lg font-semibold">₹{props.fare.auto}</h2>
       </div>
     </div>
   );

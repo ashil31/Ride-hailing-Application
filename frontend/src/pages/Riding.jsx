@@ -4,9 +4,29 @@ import { FaLocationPinLock } from "react-icons/fa6";
 import { MdOutlinePayment } from "react-icons/md";
 import car from "../assets/Uber_car.png";
 import { AiFillHome } from "react-icons/ai";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
+import { SocketContext } from "../context/SocketIOContext";
+import { useEffect, useContext } from "react";
+import { useNavigate } from "react-router-dom";
+import LiveTracking from "../components/LiveTracking";
 
 const Riding = () => {
+
+  const location = useLocation();
+  const { ride } = location.state || {};
+  const { socket } = useContext(SocketContext);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    socket.on("ride-ended", () => {
+      navigate("/home");
+    });
+
+    return () => {
+      socket.off("ride-ended");
+    };
+  }, []);
+
   return (
     <div className="h-screen">
       <Link
@@ -18,17 +38,18 @@ const Riding = () => {
 
       <div className="h-1/2">
         {/*  Image is on temporary base */}
-        <img src={map} className="h-full w-full object-cover" alt="" />
+        {/* <img src={map} className="h-full w-full object-cover" alt="" /> */}
+        <LiveTracking />
       </div>
-      <div className="h-1/2 pl-4 pr-4 pt-1">
+      <div className="h-1/2 pl-4 pr-4 pt-8">
         <div className="flex items-center justify-between ">
           <div className="">
             <img src={car} className="h-14" alt="" />
           </div>
           <div className="text-right">
-            <h2 className="text-lg font-medium">Ashil</h2>
-            <h4 className="text-xl font-semibold -mt-1 -mb-1">AP31 VG2108</h4>
-            <p className="text-sm text-gray-600">BMW M4</p>
+            <h2 className="text-lg font-medium capitalize">{ride?.captain.fullName.firstName} {" "} {ride?.captain.fullName.lastName} </h2>
+            <h4 className="text-xl font-semibold -mt-1 -mb-1">{ride?.captain.vehicle.plate}</h4>
+            <p className="text-sm text-gray-600">{ride?.captain?.vehicle.vehicleType}</p>
           </div>
         </div>
 
@@ -37,13 +58,13 @@ const Riding = () => {
             <div className="flex items-center gap-3 p-2 border-b-2">
               <FaMapMarkerAlt className="text-gray-900 text-lg" />
               <div className="w-full">
-                <h3 className="font-semibold text-base">123/11-A</h3>
+                <h3 className="font-semibold text-base">DESTINATION</h3>
                 <p className="font-normal text-sm text-gray-600">
-                  Mountain View, San jose, California
+                 {ride?.destination}
                 </p>
               </div>
             </div>
-            <div className="flex items-center gap-3 p-2 border-b-2">
+            {/* <div className="flex items-center gap-3 p-2 border-b-2">
               <FaLocationPinLock className="text-gray-900 text-lg" />
               <div className="w-full">
                 <h3 className="font-semibold text-base">Starbucks</h3>
@@ -51,11 +72,11 @@ const Riding = () => {
                   Los Angeles, California
                 </p>
               </div>
-            </div>
+            </div> */}
             <div className="flex items-center gap-3 p-2">
               <MdOutlinePayment className="text-gray-900 text-lg" />
               <div className="w-full">
-                <h3 className="font-semibold text-base">₹193.20</h3>
+                <h3 className="font-semibold text-base">₹{ride?.fare}</h3>
                 <p className="font-normal text-sm text-gray-600">Cash</p>
               </div>
             </div>

@@ -1,4 +1,5 @@
 const axios = require('axios');
+const captainModel = require('../models/captain.model');
 
 module.exports.getAddressCoordinate = async (address) => {
     const apiKey =  process.env.GOOGLE_MAP_API;
@@ -31,20 +32,32 @@ module.exports.getDistanceTime = async (origin, destination) => {
     if (!apiKey) {
         throw new Error('Google Maps API key is missing');
     }
-    const url = `https://maps.googleapis.com/maps/api/distancematrix/json?origins=${encodeURIComponent(origin)}&destinations=${encodeURIComponent(destination)}&mode=driving&key=${apiKey}`;
-
+    const url = "https://routes.googleapis.com/directions/v2:computeRoutes";
 
     try {
-        const response = await axios.get(url);
-        if(response.data.status === 'OK') {
+        const response = await axios.post(
+            url,
+            {
+                origin: { address: origin },
+                destination: { address: destination },
+                travelMode: "DRIVE",
+            },
+            {
+                headers: {
+                    "Content-Type": "application/json",
+                    "X-Goog-Api-Key": apiKey,
+                    "X-Goog-FieldMask": "routes.duration,routes.distanceMeters",
+                },
+            }
+        );
 
-            if(response.data.rows[ 0 ].elements[ 0 ].status === 'ZERO_RESULTS') {
-                throw new Error('No routes found')
-            }            
-
-            return response.data.rows[ 0 ].elements[ 0 ];
+        if (response.data.routes && response.data.routes.length > 0) {
+            return {
+                duration: response.data.routes[0].duration,
+                distance: response.data.routes[0].distanceMeters + " meters",
+            };
         } else {
-            throw new Error('Unable to fetch distance and time');
+            throw new Error("No routes found");
         }
     } catch (error) {
         console.error(error);    
@@ -79,4 +92,15 @@ module.exports.getAutoCompleteSuggestions = async (input) => {
         console.error(error);    
         throw error;  
     }
+}
+
+module.exports.getCaptainsInTheRadius = async (ltd, lng, radius) => {
+    const captains = await captainModel.find({
+        location: {
+            $geoWithin: {
+                $centerSphere: [[ltd, lng], radius / 6371]
+            }
+        }
+    });
+    return captains;
 }

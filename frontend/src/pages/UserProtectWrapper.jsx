@@ -22,8 +22,8 @@ const UserProtectWrapper = ({ children }) => {
       })
       .then((response) => {
         if (response.status === 200 || response.status === 201) {
-          setUser(response.data.user);
-          setIsLoading(false);
+          setUser(response.data.user);       
+          setIsLoading(false);          
         }
       })
       .catch((error) => {
