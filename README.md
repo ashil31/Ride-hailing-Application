@@ -1,4 +1,4 @@
-# UBER MERN Application
+# RIDE-HAILING MERN Web Application
 
 ## Overview
 A full-stack ride-hailing application built using the MERN stack. This project mimics a ride-sharing service similar to Uber and is divided into two main parts:
