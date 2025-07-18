@@ -193,7 +193,7 @@ const Home = () => {
   return (
     <div className="h-screen relative overflow-hidden">
       <img src={logo} className="w-20 absolute top-5 left-5" alt="" />
-      <div className="absolute h-2/3 w-screen ">
+      <div className="h-screen w-screen">
         {/* <img src={map} className="h-full w-full object-cover" alt="" /> */}
         <LiveTracking />
       </div>
