@@ -35,8 +35,5 @@ app.use('/maps', mapsRoutes);
 const rideRoutes = require('./routes/ride.routes');
 app.use('/rides', rideRoutes);
 
-app.get('/', (req, res) => {
-    res.send('Hello World!');
-});
 
 module.exports = app;   
